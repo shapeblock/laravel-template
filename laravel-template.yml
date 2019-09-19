@@ -257,12 +257,6 @@ objects:
         name: ${NAME}:latest
     strategy:
         sourceStrategy:
-          env:
-          - name: APP_KEY
-            valueFrom:
-              secretKeyRef:
-                key: keybase
-                name: ${NAME}-db-secret
           from:
             kind: ImageStreamTag
             name: laravel:7.2

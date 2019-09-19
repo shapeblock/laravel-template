@@ -1,9 +1,4 @@
 #!/bin/bash
 
-echo " -----> Running DB migrations."
-pushd /code
-php artisan migrate --force
-popd
-
 echo " -----> Run PHP FPM server."
 exec php-fpm
