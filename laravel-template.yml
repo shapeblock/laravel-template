@@ -11,9 +11,9 @@ metadata:
     openshift.io/long-description: This template defines resources needed to develop a Debian based Laravel setup running on PHP 7.2 using FPM and Nginx. It also includes resources required to create a MariaDB instance.
     tags: quickstart,php,laravel,shapeblock
     template.openshift.io/bindable: "false"
-labels:
-  template: laravel
-  app: ${NAME}
+  labels:
+    template: laravel
+    from: shapeblock
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
@@ -21,6 +21,7 @@ objects:
     name: ${NAME}
     labels:
       type: app
+      stack: laravel
   spec:
     replicas: 1
     selector:
@@ -106,8 +107,6 @@ objects:
   kind: Service
   metadata:
     name: ${NAME}
-    labels:
-      type: app
   spec:
     selector:
       app: ${NAME}
@@ -119,8 +118,6 @@ objects:
   kind: Secret
   metadata:
     name: ${NAME}-db-secret
-    labels:
-      app: ${NAME}
   stringData:
     database-user: ${MYSQL_USER}
     database-password: ${MYSQL_PASSWORD}
@@ -215,8 +212,6 @@ objects:
   kind: Service
   metadata:
     name: ${NAME}-db
-    labels:
-      type: service    
   spec:
     ports:
     - name: mariadb
@@ -229,8 +224,6 @@ objects:
   kind: PersistentVolumeClaim
   metadata:
     name: ${NAME}-db
-    labels:
-      app: ${NAME}
   spec:
     accessModes:
     - ReadWriteOnce
