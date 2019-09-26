@@ -5,7 +5,9 @@ message: |-
 metadata:
   name: laravel
   annotations:
-    description: An example PHP 7.2 application running on Ubuntu with a MySQL database, built for Laravel. 
+    description: Laravel, MySQL, PHP 7.2
+    repo: https://github.com/badri/laravel-tasks.git
+    icon: laravel
     iconClass: icon-laravel
     openshift.io/display-name: Laravel
     openshift.io/long-description: This template defines resources needed to develop a Debian based Laravel setup running on PHP 7.2 using FPM and Nginx. It also includes resources required to create a MariaDB instance.
@@ -297,7 +299,7 @@ parameters:
   displayName: Git Repository URL
   name: SOURCE_REPOSITORY_URL
   required: true
-  value: https://github.com/badri/hello-laravel.git
+  value: https://github.com/badri/laravel-tasks.git
 - description: Set this to a branch name, tag or other ref of your repository if you
     are not using the default branch.
   displayName: Git Reference
