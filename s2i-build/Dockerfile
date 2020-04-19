@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM bitnami/php-fpm:7.2-debian-10-prod
 
 LABEL maintainer="Lakshmi Narasimhan <lakshmi@shapeblock.com>"
 
@@ -8,7 +8,7 @@ LABEL io.k8s.description="Base image for Laravel" \
       io.openshift.tags="builder, php-fpm, php-7.2, Laravel"
 
 RUN apt-get update \
-    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev wget git curl python unzip mysql-client
+    && apt-get install -y --no-install-recommends libfreetype6-dev libjpeg62-turbo-dev libpng-dev wget git unzip
 
 RUN  docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
      && docker-php-ext-install gd \
@@ -16,10 +16,15 @@ RUN  docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-d
      && docker-php-ext-install pdo pdo_mysql opcache zip \
      && docker-php-ext-enable pdo pdo_mysql opcache zip
 
+RUN apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+
 COPY ./s2i/bin/ /usr/libexec/s2i
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # /app will map to nginx container
 RUN useradd -u 1001 -r -g 0 -d /app -s /bin/bash -c "Default Application User" default \
