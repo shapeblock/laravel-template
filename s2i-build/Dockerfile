@@ -24,7 +24,7 @@ RUN apt-get autoremove -y && \
 COPY ./s2i/bin/ /usr/libexec/s2i
 
 # Install Composer
-# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # /app will map to nginx container
 RUN useradd -u 1001 -r -g 0 -d /app -s /bin/bash -c "Default Application User" default \
