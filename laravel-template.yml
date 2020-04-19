@@ -268,8 +268,6 @@ objects:
   kind: Route
   metadata:
     name: ${NAME}
-    annotations:
-      kubernetes.io/tls-acme: 'true'
   spec:
     host: ${APPLICATION_DOMAIN}
     tls:
